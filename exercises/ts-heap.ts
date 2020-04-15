@@ -4,8 +4,7 @@
 // user import {PriorityQueue} from "./ts-heap"
 
 export interface Node {
-    x: number;
-    y: number;
+    timestamp: number;
   }
   
 export type Tuple<T> = [T, number];
@@ -38,14 +37,14 @@ export class PriorityQueue<T extends Node> {
     return (this.heap = tmp);
   }
 
-  has({ x, y }: T) {
-    const foundNode = this.heap.find(([val]) => val.x === x && val.y === y);
+  has({ timestamp }: T) {
+    const foundNode = this.heap.find(([val]) => val.timestamp === timestamp);
 
     return !!foundNode;
   }
 
-  get({ x, y }: T) {
-    const foundNode = this.heap.find(([val]) => val.x === x && val.y === y);
+  get({ timestamp }: T) {
+    const foundNode = this.heap.find(([val]) => val.timestamp === timestamp);
 
     return foundNode && foundNode[0];
   }
@@ -59,13 +58,8 @@ export class PriorityQueue<T extends Node> {
     return tuple ? tuple[0] : undefined;
   }
 
-  pop(priority: boolean) {
+  pop() {
     const tuple = this.heap.pop();
-
-    if (priority) {
-      return tuple;
-    }
-
     return tuple ? tuple[0] : undefined;
   }
 
